@@ -943,8 +943,7 @@
       bottom: var(--sp-8);
       right: var(--sp-8);
       z-index: 200;
-      font-size: 1.75rem;
-      line-height: 1;
+      width: 40px;
       text-decoration: none;
       display: block;
       filter: drop-shadow(0 2px 10px rgba(230,57,70,.5));
@@ -1140,7 +1139,15 @@
     <div class="hero__content container">
       <!-- Logo placeholder -->
       <div class="hero__logo">
-        <div class="hero__logo-icon" aria-hidden="true">🚀</div>
+        <div class="hero__logo-icon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 130" width="20" style="display:block;transform:rotate(-10deg)">
+            <path d="M 36 63 C 17 58 7 75 14 93 L 38 85 C 33 77 32 69 36 63 Z" fill="rgba(255,255,255,0.7)"/>
+            <path d="M 64 63 C 83 58 93 75 86 93 L 62 85 C 67 77 68 69 64 63 Z" fill="rgba(255,255,255,0.7)"/>
+            <path d="M 50 5 C 33 5 25 30 25 52 C 25 69 29 80 38 87 L 62 87 C 71 80 75 69 75 52 C 75 30 67 5 50 5 Z" fill="white"/>
+            <rect x="38" y="86" width="24" height="6" rx="2" fill="rgba(255,255,255,0.5)"/>
+            <path d="M 42 92 C 39 103 42 117 50 123 C 58 117 61 103 58 92 Z" fill="rgba(255,255,255,0.85)"/>
+          </svg>
+        </div>
         <span class="hero__logo-text">HeartbeatCheck</span>
       </div>
 
@@ -1301,7 +1308,30 @@
        CTA
   ============================================================ -->
   <!-- Floating Rocket -->
-  <a id="floating-rocket" href="#" aria-label="HeartbeatCheck Website" title="HeartbeatCheck">🚀</a>
+  <a id="floating-rocket" href="#" aria-label="HeartbeatCheck Website" title="HeartbeatCheck">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 130" width="40" style="display:block">
+      <!-- Left wing -->
+      <path d="M 36 63 C 17 58 7 75 14 93 L 38 85 C 33 77 32 69 36 63 Z" fill="#A7DADB"/>
+      <!-- Right wing -->
+      <path d="M 64 63 C 83 58 93 75 86 93 L 62 85 C 67 77 68 69 64 63 Z" fill="#A7DADB"/>
+      <!-- Rocket body -->
+      <path d="M 50 5 C 33 5 25 30 25 52 C 25 69 29 80 38 87 L 62 87 C 71 80 75 69 75 52 C 75 30 67 5 50 5 Z" fill="#12213A"/>
+      <!-- Gloss highlight -->
+      <path d="M 43 10 C 34 16 30 33 30 52 C 30 64 32 73 36 81 L 33 81 C 28 72 27 63 27 52 C 27 31 33 14 43 10 Z" fill="#4a7fa5" opacity="0.45"/>
+      <!-- Nozzle band -->
+      <rect x="38" y="86" width="24" height="6" rx="2" fill="#050c15"/>
+      <!-- Flame outer -->
+      <path d="M 42 92 C 39 103 42 117 50 123 C 58 117 61 103 58 92 Z" fill="#F05C28"/>
+      <!-- Flame middle -->
+      <path d="M 45 94 C 43 103 46 115 50 120 C 54 115 57 103 55 94 Z" fill="#C1121F"/>
+      <!-- Flame inner -->
+      <path d="M 48 96 C 47 103 48 112 50 117 C 52 112 53 103 52 96 Z" fill="#FFAB40"/>
+      <!-- Heart -->
+      <path d="M 50 77 C 48 77 33 67 33 56 C 33 50 37.5 46.5 42 46.5 C 45 46.5 47.5 49 50 52 C 52.5 49 55 46.5 58 46.5 C 62.5 46.5 67 50 67 56 C 67 67 52 77 50 77 Z" fill="#E63946"/>
+      <!-- EKG line -->
+      <polyline points="33,56 37,56 39.5,50 42,62 44.5,48 47,56 53,56 55,53 60,53 65,53" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </a>
 
   <section id="section-cta">
     <div class="cta__inner">
@@ -1324,7 +1354,15 @@
   <footer id="section-footer" role="contentinfo">
     <div class="footer__inner">
       <div class="footer__logo">
-        <div class="footer__logo-icon" aria-hidden="true">🚀</div>
+        <div class="footer__logo-icon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 130" width="16" style="display:block;transform:rotate(-10deg)">
+            <path d="M 36 63 C 17 58 7 75 14 93 L 38 85 C 33 77 32 69 36 63 Z" fill="rgba(255,255,255,0.7)"/>
+            <path d="M 64 63 C 83 58 93 75 86 93 L 62 85 C 67 77 68 69 64 63 Z" fill="rgba(255,255,255,0.7)"/>
+            <path d="M 50 5 C 33 5 25 30 25 52 C 25 69 29 80 38 87 L 62 87 C 71 80 75 69 75 52 C 75 30 67 5 50 5 Z" fill="white"/>
+            <rect x="38" y="86" width="24" height="6" rx="2" fill="rgba(255,255,255,0.5)"/>
+            <path d="M 42 92 C 39 103 42 117 50 123 C 58 117 61 103 58 92 Z" fill="rgba(255,255,255,0.85)"/>
+          </svg>
+        </div>
         <span class="footer__logo-text">HeartbeatCheck</span>
       </div>
       <nav class="footer__nav" aria-label="Footer">
