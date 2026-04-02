@@ -1146,8 +1146,8 @@
 
       <p class="eyebrow hero__eyebrow">Heartbeat Quick Check</p>
       <h1 class="hero__headline">Wie gesund ist der Herzschlag Ihres&nbsp;Unternehmens?</h1>
-      <p class="hero__subline">Machen Sie jetzt unseren Quick Check und finden Sie heraus, wo Ihr Unternehmen gut aufgestellt ist&nbsp;– und wo Sie im Blindflug unterwegs sind. 16 Fragen. 5 Minuten.</p>
-      <p class="hero__audience">Für Geschäftsführer und Führungskräfte im Mittelstand</p>
+      <p class="hero__subline">Machen Sie jetzt unseren Quick Check für 0€ und finden Sie heraus, wo Ihr Unternehmen gut aufgestellt ist&nbsp;– und wo Sie im Blindflug unterwegs sind. 16 Fragen. 5 Minuten.</p>
+      <p class="hero__audience">Für Geschäftsführer und Führungskräfte</p>
 
       <div class="hero__cta">
         <button class="btn btn--primary" id="btn-start-hero" onclick="dispatch({type:'START_QUIZ'})">
@@ -1156,7 +1156,7 @@
       </div>
     </div>
 
-    <div class="hero__scroll-hint" aria-hidden="true">↓ Weiterscrollen</div>
+    <div class="hero__scroll-hint" aria-hidden="true">↓ Weiterscrollen →</div>
   </section>
 
   <!-- ============================================================
@@ -2017,7 +2017,7 @@
 
     function animateScoreCounter(target) {
       const el = document.getElementById('results-total');
-      const duration = 800;
+      const duration = 2000;
       const start = performance.now();
 
       function tick(now) {
