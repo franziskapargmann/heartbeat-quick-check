@@ -958,14 +958,19 @@
       animation: none;
     }
 
-    #floating-rocket.hidden {
-      opacity: 0;
-      pointer-events: none;
+    #floating-rocket.rocket-impact {
+      animation: rocketImpact 0.55s ease-out forwards !important;
     }
 
     @keyframes rocketPulse {
       0%, 100% { transform: rotate(-45deg) scale(1); filter: drop-shadow(0 2px 10px rgba(230,57,70,.5)); }
       50%       { transform: rotate(-45deg) scale(1.18); filter: drop-shadow(0 4px 16px rgba(230,57,70,.8)); }
+    }
+
+    @keyframes rocketImpact {
+      0%   { transform: rotate(-45deg) scale(1); filter: drop-shadow(0 2px 10px rgba(230,57,70,.5)); }
+      40%  { transform: rotate(-45deg) scale(1.5); filter: drop-shadow(0 6px 22px rgba(230,57,70,1)); }
+      100% { transform: rotate(-45deg) scale(1.05); filter: drop-shadow(0 3px 12px rgba(230,57,70,.6)); }
     }
 
     .cta__inner {
@@ -1896,57 +1901,18 @@
         if (progress < 1) {
           requestAnimationFrame(drawLine);
         } else {
-          // Rocket flies off from endpoint
-          const [endX, endY] = dense[dense.length - 1];
-          launchRocket(endX, endY);
+          // Line stays fully visible — trigger rocket pulse
+          triggerRocketPulse();
         }
       }
 
-      function launchRocket(startX, startY) {
-        const rocketDuration = 1100;
-        const rocketStart = performance.now();
-
-        function drawRocket(now) {
-          const t = Math.min((now - rocketStart) / rocketDuration, 1);
-          const eased = 1 - Math.pow(1 - t, 2.5);
-
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-          ctx.save();
-          ctx.scale(dpr, dpr);
-
-          // Static line fades out
-          ctx.beginPath();
-          dense.forEach(([x, y], i) => i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y));
-          ctx.strokeStyle = grad;
-          ctx.globalAlpha = Math.max(0, 1 - t * 1.4);
-          ctx.lineWidth = 2;
-          ctx.lineJoin = 'round';
-          ctx.lineCap = 'round';
-          ctx.stroke();
-          ctx.globalAlpha = 1;
-
-          // Rocket moves up-right and fades out
-          const rx = startX + eased * 70;
-          const ry = startY - eased * 90;
-          const alpha = Math.max(0, 1 - t * 1.1);
-          const fontSize = Math.round(18 + eased * 8);
-
-          ctx.globalAlpha = alpha;
-          ctx.font = `${fontSize}px sans-serif`;
-          ctx.textAlign = 'center';
-          ctx.textBaseline = 'middle';
-          // Rotate rocket to fly up-right
-          ctx.translate(rx, ry);
-          ctx.rotate(-Math.PI / 4);
-          ctx.fillText('🚀', 0, 0);
-          ctx.globalAlpha = 1;
-
-          ctx.restore();
-
-          if (t < 1) requestAnimationFrame(drawRocket);
-        }
-
-        requestAnimationFrame(drawRocket);
+      function triggerRocketPulse() {
+        const rocket = document.getElementById('floating-rocket');
+        if (!rocket) return;
+        // Stop normal pulsing, do one big pulse, then stay static
+        rocket.classList.add('no-pulse');
+        rocket.classList.add('rocket-impact');
+        setTimeout(() => rocket.classList.remove('rocket-impact'), 600);
       }
 
       requestAnimationFrame(drawLine);
@@ -2040,10 +2006,11 @@
 
         if (progress < 1) {
           requestAnimationFrame(draw);
-        } else {
-          setTimeout(() => animateScoreCounter(totalScore), 300);
         }
       }
+
+      // Start score counter immediately in parallel
+      animateScoreCounter(totalScore);
 
       requestAnimationFrame(draw);
     }
@@ -2145,25 +2112,30 @@
         ekgIO.observe(ctaCanvas);
       }
 
-      // Floating rocket: pulse off on CTA, hide on footer
+      // Floating rocket: resume pulsing when CTA scrolls out of view
       const rocket = document.getElementById('floating-rocket');
       if (rocket) {
-        const ctaSection   = document.getElementById('section-cta');
-        const footerSection = document.getElementById('section-footer');
+        const ctaSection = document.getElementById('section-cta');
+        const ctaCanvas  = document.getElementById('ekg-cta-bottom');
 
         const rocketIO = new IntersectionObserver((entries) => {
           entries.forEach(entry => {
             if (entry.target === ctaSection) {
-              entry.isIntersecting ? rocket.classList.add('no-pulse') : rocket.classList.remove('no-pulse');
-            }
-            if (entry.target === footerSection) {
-              entry.isIntersecting ? rocket.classList.add('hidden') : rocket.classList.remove('hidden');
+              if (!entry.isIntersecting) {
+                // Scrolled back up — resume pulsing, remove static state
+                // (only if EKG has not yet fired — once it fires, no-pulse is permanent until scroll up)
+                if (!ctaCanvas || !ctaCanvas.dataset.animated) {
+                  rocket.classList.remove('no-pulse');
+                } else {
+                  // EKG already done — resume pulsing when CTA leaves view
+                  rocket.classList.remove('no-pulse');
+                }
+              }
             }
           });
-        }, { threshold: 0.1 });
+        }, { threshold: 0.05 });
 
         rocketIO.observe(ctaSection);
-        rocketIO.observe(footerSection);
       }
     }
 
